@@ -1,5 +1,8 @@
 // NULL/CORE — archivo de episodios (lo actualiza Claude después de cada transmisión; el más reciente va PRIMERO)
-// estado: "programado" (escaleta lista, aún no sale) · "emitido" (con recap, VOD y lo que sonó)
+// estado: "programado" (escaleta lista, aún no sale) · "emitido" (con recap, VOD y tiempos de la playlist)
+// UNA sola playlist por episodio: es la que suena en la radio y acompaña al VOD (el VOD de Twitch sale sin música).
+// playlist: { spotifyId, tracks: [ { artista, titulo, bloque, ancla: true|false, t: "H:MM:SS" } ] }
+//   t = momento del VOD en que sonó (se llena después del show con el log de Tuna); ancla = una de las canciones base del día
 window.NC_EPISODIOS = [
   {
     id: "2026-10-30",
@@ -12,23 +15,22 @@ window.NC_EPISODIOS = [
     recap: [],                       // párrafos del recap (se llenan después del show)
     momentos: [],                    // [{ t: "0:45:10", texto: "..." }] momentos destacados con marca de tiempo del VOD
     vod: { id: "" },                 // id numérico del VOD de Twitch (twitch.tv/videos/ID)
-    playlistDia: {                   // playlist preparada para el episodio
+    playlist: {                      // la playlist de la noche (radio + acompañar el VOD)
       spotifyId: "",
       tracks: [
-        { artista: "VALORANT, Grabbitz, Oli Sykes & Courtney LaPlante", titulo: "If The Sun Burns Out Tonight", bloque: "B-SIDE" },
-        { artista: "My Chemical Romance", titulo: "Helena", bloque: "B-SIDE" },
-        { artista: "VALORANT & Grabbitz", titulo: "Die For You", bloque: "VALORANT" },
-        { artista: "Bring Me The Horizon", titulo: "Kingslayer (feat. BABYMETAL)", bloque: "VALORANT" },
-        { artista: "Spiritbox", titulo: "Holy Roller", bloque: "VALORANT" },
-        { artista: "Turnstile", titulo: "MYSTERY", bloque: "VALORANT" },
-        { artista: "Grabbitz & bbno$", titulo: "Ticking Away", bloque: "VALORANT" },
-        { artista: "Knocked Loose", titulo: "Counting Worms", bloque: "VALORANT" },
-        { artista: "Architects", titulo: "Animals", bloque: "VALORANT" },
-        { artista: "Bad Omens", titulo: "THE DEATH OF PEACE OF MIND", bloque: "VALORANT" },
-        { artista: "Linkin Park", titulo: "The Emptiness Machine", bloque: "VALORANT" }
+        { artista: "VALORANT, Grabbitz, Oli Sykes & Courtney LaPlante", titulo: "If The Sun Burns Out Tonight", bloque: "B-SIDE", ancla: false },
+        { artista: "My Chemical Romance", titulo: "Helena", bloque: "B-SIDE", ancla: false },
+        { artista: "VALORANT & Grabbitz", titulo: "Die For You", bloque: "VALORANT", ancla: false },
+        { artista: "Bring Me The Horizon", titulo: "Kingslayer (feat. BABYMETAL)", bloque: "VALORANT", ancla: false },
+        { artista: "Spiritbox", titulo: "Holy Roller", bloque: "VALORANT", ancla: false },
+        { artista: "Turnstile", titulo: "MYSTERY", bloque: "VALORANT", ancla: false },
+        { artista: "Grabbitz & bbno$", titulo: "Ticking Away", bloque: "VALORANT", ancla: false },
+        { artista: "Knocked Loose", titulo: "Counting Worms", bloque: "VALORANT", ancla: false },
+        { artista: "Architects", titulo: "Animals", bloque: "VALORANT", ancla: false },
+        { artista: "Bad Omens", titulo: "THE DEATH OF PEACE OF MIND", bloque: "VALORANT", ancla: false },
+        { artista: "Linkin Park", titulo: "The Emptiness Machine", bloque: "VALORANT", ancla: false }
       ]
     },
-    sonoEnVivo: { spotifyId: "", tracks: [] },   // lo que realmente sonó esa noche: [{ hora: "21:24", artista, titulo }]
     titulares: [
       { bloque: "CORE DUMP", titular: "gta vi: predescarga el 12 de noviembre", detalle: "Sale el 19 en PS5 y Xbox Series; la edición física trae código.", url: "https://www.digitalcitizen.life/gta-6-preloads-begin-on-november-12-for-digital-and-physical-code-copies/", fuente: "Digital Citizen" },
       { bloque: "CORE DUMP", titular: "phantom blade zero ya salió", detalle: "Lanzamiento el 29 de octubre en PS5 y PC; Game Informer le dio 9.5.", url: "https://gameinformer.com/review/phantom-blade-zero/wuxian-wonder-abounds", fuente: "Game Informer" },
