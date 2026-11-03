@@ -9,9 +9,11 @@
 <meta property="og:description" content="Recaps, VODs y playlists de cada transmisión.">
 <meta property="og:image" content="assets/logo.png">
 <link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
   @font-face { font-family: "SpinCycle"; src: url("assets/spincycle.ttf"); font-display: swap; }
-  :root { --bk:#000; --wh:#fff; --g1:#0b0b0b; --g2:#151515; --line:#2c2c2c; --dim:rgba(255,255,255,.55); --mono:"Consolas","Lucida Console","Courier New",monospace; --cut:14px; }
+  :root { --bk:#000; --wh:#fff; --g1:#0b0b0b; --g2:#151515; --line:#2c2c2c; --mono:"JetBrains Mono","Consolas","Lucida Console","Courier New",monospace; --head:"Space Grotesk","Segoe UI","Helvetica Neue",Arial,sans-serif; --dim:rgba(255,255,255,.68); --cut:14px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { background: var(--bk); color: var(--wh); }
   body { font-family: var(--mono); font-size: 15px; line-height: 1.6; min-height: 100vh;
@@ -19,8 +21,10 @@
          background-size: 48px 48px; }
   a { color: var(--wh); }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  /* Spin Cycle solo para marca y palabras cortas; títulos largos en Space Grotesk (legible, mismo tono) */
   .display { font-family: "SpinCycle", var(--mono); letter-spacing: .5px; line-height: 1.05; }
-  .tag { display: inline-block; background: var(--wh); color: var(--bk); padding: 2px 10px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+  .title { font-family: var(--head); font-weight: 700; letter-spacing: -.5px; line-height: 1.08; text-wrap: balance; }
+  .tag { display: inline-block; background: var(--wh); color: var(--bk); padding: 2px 10px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
   .tag.o { background: none; color: var(--wh); border: 1px solid var(--wh); }
   .ps { background: var(--wh); color: var(--bk); padding: 0 6px; margin-right: 8px; }
   .cur { animation: blink 1s steps(1) infinite; } @keyframes blink { 50% { opacity: 0; } }
@@ -50,7 +54,7 @@
   /* secciones */
   section { padding: 28px 0; }
   .sec-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 20px; }
-  .sec-h h2 { font-size: 26px; }
+  .sec-h h2 { font-size: 28px; }
   .sec-h span { color: var(--dim); font-size: 12px; letter-spacing: 2px; }
 
   /* tarjetas de episodio */
@@ -58,20 +62,22 @@
   .card { display: block; text-decoration: none; background: var(--g1); border: 1px solid var(--line); padding: 18px; transition: border-color .2s, transform .2s; }
   .card:hover { border-color: var(--wh); transform: translateY(-2px); }
   .card .num { font-family: "SpinCycle"; font-size: 54px; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--wh); }
-  .card h3 { font-size: 20px; margin: 10px 0 6px; }
-  .card p { color: var(--dim); font-size: 13px; }
+  .card h3 { font-size: 22px; margin: 10px 0 8px; }
+  .card p { color: var(--dim); font-size: 14px; line-height: 1.55; }
   .card .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 12px; color: var(--dim); }
 
   /* página de episodio */
   .ep-head { padding: 40px 0 10px; }
   .ep-head .row { display: flex; gap: 22px; align-items: flex-end; flex-wrap: wrap; }
   .ep-head .num { font-family: "SpinCycle"; font-size: clamp(80px, 14vw, 150px); line-height: .9; color: transparent; -webkit-text-stroke: 2px var(--wh); }
-  .ep-head h1 { font-size: clamp(30px, 5vw, 54px); }
-  .ep-head .sub { color: var(--dim); margin-top: 10px; }
+  .ep-head h1 { font-size: clamp(30px, 4.6vw, 52px); max-width: 820px; }
+  .ep-head .row > div:last-child { flex: 1 1 320px; min-width: 0; }
+  .ep-head .sub { color: var(--dim); margin-top: 14px; max-width: 760px; font-size: 15px; }
   .back { display: inline-block; margin-bottom: 16px; color: var(--dim); text-decoration: none; font-size: 13px; } .back:hover { color: var(--wh); }
   .cols { display: grid; grid-template-columns: 1.35fr 1fr; gap: 24px; align-items: start; }
   .box { background: var(--g1); border: 1px solid var(--line); margin-bottom: 24px; }
-  .box > .bh { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--wh); color: var(--bk); font-size: 12px; letter-spacing: 1px; }
+  .box > .bh { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 12px; background: var(--wh); color: var(--bk); font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+  .box > .bh > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .box > .bh .x { letter-spacing: 8px; }
   .box > .bb { padding: 16px; }
   .embed { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
@@ -80,20 +86,23 @@
   .pending { padding: 28px 16px; text-align: center; color: var(--dim); border: 1px dashed var(--line); }
   .recap p { margin-bottom: 12px; }
   .moments li { list-style: none; display: flex; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
-  .moments a { text-decoration: none; background: var(--wh); color: var(--bk); padding: 0 6px; height: fit-content; white-space: nowrap; }
+  .moments a, .tt { text-decoration: none; background: var(--wh); color: var(--bk); padding: 0 6px; height: fit-content; white-space: nowrap; font: inherit; font-weight: 700; border: 0; cursor: pointer; }
+  .tt { font-size: 12px; } .tt.off { background: none; color: var(--dim); border: 1px solid var(--line); cursor: default; }
   ol.tracks { list-style: none; counter-reset: t; }
-  ol.tracks li { counter-increment: t; display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  ol.tracks li { counter-increment: t; display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.4; align-items: start; }
+  ol.tracks li > div { min-width: 0; }
+  ol.tracks li.anc { border-left: 3px solid var(--wh); padding-left: 8px; }
+  .anc-tag { font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-left: 6px; }
   ol.tracks li::before { content: counter(t, decimal-leading-zero); color: var(--dim); }
-  ol.tracks .a { color: var(--dim); display: block; font-size: 12px; }
-  ol.tracks .r { color: var(--dim); font-size: 11px; text-align: right; }
-  ol.tracks a { text-decoration: none; } ol.tracks a:hover { text-decoration: underline; }
+  ol.tracks .a { color: var(--dim); display: block; font-size: 12.5px; margin-top: 2px; }
+  ol.tracks .r { color: var(--dim); font-size: 11px; letter-spacing: 1px; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  ol.tracks a { text-decoration: none; font-weight: 500; } ol.tracks a:hover { text-decoration: underline; }
   .hl { padding: 10px 0; border-bottom: 1px solid var(--line); }
-  .hl .b { font-size: 11px; letter-spacing: 2px; color: var(--dim); }
-  .hl a { text-decoration: none; font-family: "SpinCycle"; font-size: 17px; } .hl a:hover { text-decoration: underline; }
-  .hl p { color: var(--dim); font-size: 13px; }
-  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
-  .tabs button { font: inherit; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; background: none; border: 0; color: var(--dim); padding: 8px 12px; cursor: pointer; }
-  .tabs button.act { background: var(--wh); color: var(--bk); }
+  .hl .b { font-size: 12px; letter-spacing: 2px; color: var(--dim); }
+  .hl a { text-decoration: none; font-family: var(--head); font-weight: 700; font-size: 18px; line-height: 1.3; display: inline-block; margin-bottom: 2px; } .hl a:hover { text-decoration: underline; }
+  .hl p { color: var(--dim); font-size: 13.5px; line-height: 1.5; }
+  .listen { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; border: 1px solid var(--wh); padding: 10px 12px; margin-bottom: 14px; }
+  .listen b { background: var(--wh); color: var(--bk); padding: 0 6px; white-space: nowrap; }
 
   footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 28px 0 40px; color: var(--dim); font-size: 12px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: center; }
@@ -102,10 +111,16 @@
   @media (max-width: 820px) {
     .hero, .cols { grid-template-columns: 1fr; }
     .hero .iso { max-width: 180px; order: -1; }
-    nav { gap: 10px; font-size: 10px; letter-spacing: .5px; }
+    nav { gap: 12px; font-size: 12px; letter-spacing: .5px; }
+    body { font-size: 14.5px; }
+    .sec-h h2 { font-size: 22px; }
+    .sec-h span, .tag { font-size: 12px; }
     header img { height: 18px; }
-    .box > .bh { font-size: 10px; } .box > .bh .x { display: none; }
+    .box > .bh { font-size: 12px; } .box > .bh .x { display: none; }
     .spot iframe { height: 352px; }
+    /* en celular la playlist va justo debajo del VOD (lo acompaña) */
+    .cols { display: flex; flex-direction: column; gap: 0; } .cols > div { display: contents; }
+    .cols .box, .cols .o-nav { width: 100%; } .o-vod { order: 1; } .o-pl { order: 2; } .o-recap { order: 3; } .o-hl { order: 4; } .o-nav { order: 5; }
   }
 </style>
 </head>
@@ -137,7 +152,7 @@ const vodT = t => { const s = toSec(t); return `${Math.floor(s / 3600)}h${Math.f
 function card(e) {
   return `<a class="card" href="#/ep/${e.id}">
     <div class="num">${esc(e.num)}</div>
-    <h3 class="display">${esc(e.titulo)}</h3>
+    <h3 class="title">${esc(e.titulo)}</h3>
     <p>${esc(e.resumen)}</p>
     <div class="meta"><span>${fecha(e.fecha || e.id)}</span><span class="tag ${e.estado === "emitido" ? "" : "o"}">${e.estado === "emitido" ? "vod + playlist" : "próximamente"}</span></div>
   </a>`;
@@ -166,14 +181,20 @@ function home() {
 
 function archivo() {
   app.innerHTML = `<div class="wrap"><section style="padding-top:40px">
-    <div class="sec-h"><h2 class="display">archivo de episodios</h2><span>${EPS.length} EN TOTAL</span></div>
+    <div class="sec-h"><h2 class="title">archivo de episodios</h2><span>${EPS.length} EN TOTAL</span></div>
     <div class="grid">${EPS.map(card).join("")}</div></section></div>`;
 }
 
-function trackList(list, withTime) {
+function trackList(list, hasVod) {
   if (!list || !list.length) return `<div class="pending">Lista pendiente.</div>`;
-  return `<ol class="tracks">${list.map(t => `<li><div><a href="${esc(t.url || spSearch(t))}" target="_blank" rel="noopener">${esc(t.titulo)}</a><span class="a">${esc(t.artista)}</span></div>
-    <span class="r">${esc(withTime ? (t.hora || "") : (t.bloque || ""))}</span></li>`).join("")}</ol>`;
+  return `<ol class="tracks">${list.map(t => `<li class="${t.ancla ? "anc" : ""}"><div><a href="${esc(t.url || spSearch(t))}" target="_blank" rel="noopener">${esc(t.titulo)}</a>${t.ancla ? `<span class="anc-tag">★ ANCLA</span>` : ""}<span class="a">${esc(t.artista)}</span></div>
+    <span class="r">${t.t ? (hasVod ? `<button class="tt" data-seek="${esc(t.t)}" title="Ir a este momento del VOD">▶ ${esc(t.t)}</button>` : `<span class="tt off">${esc(t.t)}</span>`) : ""}<span>${esc(t.bloque || "")}</span></span></li>`).join("")}</ol>`;
+}
+// salta el reproductor de Twitch de esta página al segundo indicado (recarga el iframe con &time=)
+function seekVod(t) {
+  const f = document.getElementById("vodFrame"); if (!f) return;
+  f.src = f.dataset.base + "&autoplay=true&time=" + vodT(t);
+  f.closest(".box").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 const spEmbed = id => `<div class="spot"><iframe src="https://open.spotify.com/embed/playlist/${esc(id)}?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
 
@@ -181,48 +202,45 @@ function episodio(id) {
   const e = EPS.find(x => x.id === id); if (!e) return notFound();
   const i = EPS.indexOf(e), prev = EPS[i + 1], next = EPS[i - 1];
   const vod = e.vod && e.vod.id
-    ? `<div class="embed"><iframe src="https://player.twitch.tv/?video=v${esc(e.vod.id)}&parent=${esc(twitchParent)}&autoplay=false" allowfullscreen></iframe></div>`
+    ? `<div class="embed"><iframe id="vodFrame" data-base="https://player.twitch.tv/?video=v${esc(e.vod.id)}&parent=${esc(twitchParent)}" src="https://player.twitch.tv/?video=v${esc(e.vod.id)}&parent=${esc(twitchParent)}&autoplay=false" allowfullscreen></iframe></div>`
     : `<div class="pending">${e.estado === "emitido" ? "VOD en proceso" : "El VOD aparece aquí después de la transmisión."}<br><br><a class="btn" href="https://www.twitch.tv/sgamez1504" target="_blank" rel="noopener">twitch.tv/sgamez1504</a></div>`;
   const recap = (e.recap || []).length ? `<div class="recap">${e.recap.map(p => `<p>${esc(p)}</p>`).join("")}</div>`
     : `<div class="pending">El recap se publica después de la transmisión.</div>`;
-  const moments = (e.momentos || []).length ? `<ul class="moments" style="margin-top:12px">${e.momentos.map(m => `<li>${e.vod && e.vod.id ? `<a href="https://www.twitch.tv/videos/${esc(e.vod.id)}?t=${vodT(m.t)}" target="_blank" rel="noopener">${esc(m.t)}</a>` : `<span class="tag">${esc(m.t)}</span>`}<span>${esc(m.texto)}</span></li>`).join("")}</ul>` : "";
+  const moments = (e.momentos || []).length ? `<ul class="moments" style="margin-top:12px">${e.momentos.map(m => `<li>${e.vod && e.vod.id ? `<a href="https://www.twitch.tv/videos/${esc(e.vod.id)}?t=${vodT(m.t)}" data-seek="${esc(m.t)}" title="Ir a este momento del VOD">${esc(m.t)}</a>` : `<span class="tag">${esc(m.t)}</span>`}<span>${esc(m.texto)}</span></li>`).join("")}</ul>` : "";
   const bloques = [...new Set((e.titulares || []).map(h => h.bloque))];
+  const pl = e.playlist || e.playlistDia || {}, hasVod = !!(e.vod && e.vod.id);
   app.innerHTML = `<div class="wrap">
     <div class="ep-head">
       <a class="back" href="#/">&lt; volver</a>
       <div class="row"><div class="num">${esc(e.num)}</div>
         <div><span class="tag ${e.estado === "emitido" ? "" : "o"}">${e.estado === "emitido" ? "emitido" : "próximamente"} · ${fecha(e.fecha || e.id)} · ${esc(e.hora || "")}</span>
-        <h1 class="display" style="margin-top:10px">${esc(e.titulo)}</h1></div></div>
+        <h1 class="title" style="margin-top:12px">${esc(e.titulo)}</h1></div></div>
       <p class="sub">${esc(e.resumen)}</p>
     </div>
     <div class="cols" style="margin-top:24px">
       <div>
-        <div class="box"><div class="bh"><span>C:\\NULLCORE\\VOD.EXE — TWITCH</span><span class="x">_ □ ×</span></div><div class="bb" style="padding:0">${vod}</div></div>
-        <div class="box"><div class="bh"><span>C:\\NULLCORE\\RECAP.TXT</span><span class="x">_ □ ×</span></div><div class="bb">${recap}${moments}</div></div>
-        <div class="box"><div class="bh"><span>C:\\NULLCORE\\CORE_DUMP — TITULARES</span><span class="x">_ □ ×</span></div><div class="bb">
+        <div class="box o-vod"><div class="bh"><span>C:\\NULLCORE\\VOD.EXE — TWITCH</span><span class="x">_ □ ×</span></div><div class="bb" style="padding:0">${vod}</div></div>
+        <div class="box o-recap"><div class="bh"><span>C:\\NULLCORE\\RECAP.TXT</span><span class="x">_ □ ×</span></div><div class="bb">${recap}${moments}</div></div>
+        <div class="box o-hl"><div class="bh"><span>C:\\NULLCORE\\CORE_DUMP — TITULARES</span><span class="x">_ □ ×</span></div><div class="bb">
           ${bloques.map(b => `<div style="margin-bottom:6px"><span class="tag" style="margin:6px 0 2px">${esc(b)}</span>${e.titulares.filter(h => h.bloque === b).map(h => `
             <div class="hl"><a href="${esc(h.url)}" target="_blank" rel="noopener">${esc(h.titular)}</a><p>${esc(h.detalle)} — ${esc(h.fuente)}</p></div>`).join("")}</div>`).join("") || `<div class="pending">Sin titulares.</div>`}
         </div></div>
       </div>
       <div>
-        <div class="box"><div class="bh"><span>C:\\NULLCORE\\PLAYLIST.EXE</span><span class="x">_ □ ×</span></div><div class="bb">
-          <div class="tabs"><button class="act" data-t="dia">playlist del día</button><button data-t="vivo">lo que sonó en vivo</button></div>
-          <div data-p="dia">${e.playlistDia && e.playlistDia.spotifyId ? spEmbed(e.playlistDia.spotifyId) + `<div style="height:12px"></div>` : ""}${trackList(e.playlistDia && e.playlistDia.tracks)}</div>
-          <div data-p="vivo" hidden>${e.sonoEnVivo && e.sonoEnVivo.spotifyId ? spEmbed(e.sonoEnVivo.spotifyId) + `<div style="height:12px"></div>` : ""}${(e.sonoEnVivo && e.sonoEnVivo.tracks || []).length ? trackList(e.sonoEnVivo.tracks, true) : `<div class="pending">Se publica después de la transmisión, con la hora en que sonó cada canción.</div>`}</div>
+        <div class="box o-pl"><div class="bh"><span>C:\\NULLCORE\\PLAYLIST.EXE</span><span class="x">_ □ ×</span></div><div class="bb">
+          <div class="listen"><b>♪</b><span>El VOD de Twitch sale sin la música. Dale play aquí y escucha la playlist de la noche mientras lo ves.</span></div>
+          ${pl.spotifyId ? spEmbed(pl.spotifyId) + `<div style="height:12px"></div>` : ""}${trackList(pl.tracks, hasVod)}
         </div></div>
-        <div class="btns" style="justify-content:space-between">
+        <div class="btns o-nav" style="justify-content:space-between">
           ${prev ? `<a class="btn" href="#/ep/${prev.id}">&lt; ${esc(prev.num)}</a>` : "<span></span>"}
           ${next ? `<a class="btn" href="#/ep/${next.id}">${esc(next.num)} &gt;</a>` : ""}
         </div>
       </div>
     </div></div>`;
-  app.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
-    app.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("act", x === b));
-    app.querySelectorAll("[data-p]").forEach(p => p.hidden = p.dataset.p !== b.dataset.t);
-  });
+  app.querySelectorAll("[data-seek]").forEach(b => b.onclick = ev => { if (!document.getElementById("vodFrame")) return; ev.preventDefault(); seekVod(b.dataset.seek); });
   document.title = `${e.num} · ${e.titulo} — NULL/CORE`;
 }
-function notFound() { app.innerHTML = `<div class="wrap"><section style="padding:80px 0"><h1 class="display">404 // episodio no encontrado</h1><p style="margin-top:16px"><a href="#/">volver al inicio</a></p></section></div>`; }
+function notFound() { app.innerHTML = `<div class="wrap"><section style="padding:80px 0"><h1 class="title">404 // episodio no encontrado</h1><p style="margin-top:16px"><a href="#/">volver al inicio</a></p></section></div>`; }
 
 function route() {
   const h = location.hash.replace(/^#\/?/, "");
