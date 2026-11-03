@@ -1,0 +1,25 @@
+NULL/CORE — SITIO WEB (GitHub Pages)
+====================================
+
+CONFIGURACIÓN (una sola vez, ~5 minutos)
+  1. Instala GitHub Desktop: https://desktop.github.com  e inicia sesión con tu cuenta de GitHub.
+  2. GitHub Desktop → File → Add local repository → elige  Documentos\NULLCORE\web
+     Te dirá que no es un repositorio → clic en "create a repository" → Name: nullcore → Create repository.
+  3. Clic en "Publish repository" → DESMARCA "Keep this code private" → Publish.
+  4. En github.com → tu repositorio "nullcore" → Settings → Pages
+     Source: "Deploy from a branch" · Branch: main · carpeta: / (root) → Save.
+  5. En 1-2 minutos el sitio queda en:  https://TU-USUARIO.github.io/nullcore/
+     (Si después compras un dominio, se configura en esa misma pantalla: "Custom domain".)
+
+CADA EPISODIO
+  Claude actualiza  web\data\episodios.js  (escaleta, playlist, recap, VOD y lo que sonó).
+  Tú solo abres GitHub Desktop → "Commit to main" → "Push origin". En 1 minuto se ve en la web.
+
+ESTRUCTURA
+  index.html          el sitio (inicio, archivo y página de cada episodio: #/ep/AAAA-MM-DD)
+  data/episodios.js   los datos de cada transmisión (el más reciente primero)
+  assets/             logo, isotipo y fuente Spin Cycle
+
+SPOTIFY
+  Para que el reproductor de Spotify se vea en la web, la playlist debe ser PÚBLICA
+  (en Spotify: playlist → ··· → "Hacer pública").
